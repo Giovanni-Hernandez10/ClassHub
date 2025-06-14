@@ -1,9 +1,4 @@
 import "react"
-// import {useState, useEffect} from "react";
-// import {supabase} from "../supabase/supabaseClient.ts";
-// import { Auth } from '@supabase/auth-ui-react'
-// import { ThemeSupa } from '@supabase/auth-ui-shared'
-// import type {Session} from '@supabase/supabase-js';
 import {LoginForm} from "@/auth/login-form-component.tsx";
 
 // export function AuthenticationPage() {

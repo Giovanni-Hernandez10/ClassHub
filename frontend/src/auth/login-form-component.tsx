@@ -9,12 +9,41 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import {supabase} from "@/supabase/supabaseClient.ts";
+import {useState} from "react";
 import * as React from "react"
+
+// Function used to sign-in users with their email and passowrd
+async function emailLogin(email: string, password: string) {
+
+    try {
+        const {data, error} = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
+    } catch (error) {
+        console.error("There was an error logging in with email", error);
+    }
+}
+
+// function used to sign-in users with their google accounts
+async function googleLogin() {
+    try {
+        const {data, error} = await supabase.auth.signInWithOAuth({
+            provider: 'google'
+        });
+    } catch (error) {
+        console.error("There was an error logging in with google", error);
+    }
+}
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  // used to pass in the fields to emailLogin function
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -34,6 +63,8 @@ export function LoginForm({
                   type="email"
                   placeholder="m@example.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-3">
@@ -46,13 +77,13 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" onClick={() => emailLogin(email, password)}>
                   Login
                 </Button>
-                <Button variant="default" className="w-full">
+                <Button variant="secondary" className="w-full" onClick={googleLogin}>
                   Login with Google
                 </Button>
               </div>
