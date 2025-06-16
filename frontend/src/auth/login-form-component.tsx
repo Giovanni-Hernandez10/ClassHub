@@ -83,7 +83,7 @@ export function LoginForm({
                 <Button type="submit" className="w-full" onClick={() => emailLogin(email, password)}>
                   Login
                 </Button>
-                <Button variant="secondary" className="w-full" onClick={googleLogin}>
+                <Button variant="default" className="w-full" onClick={googleLogin}>
                   Login with Google
                 </Button>
               </div>
