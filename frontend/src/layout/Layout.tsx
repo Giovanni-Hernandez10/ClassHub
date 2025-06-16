@@ -1,14 +1,39 @@
 import "react"
+import {useSelector} from "react-redux";
 import {Outlet, Link} from "react-router-dom";
+import { cn } from "@/lib/utils"
+import {Button} from "@/components/ui/button"
 
 export function Layout() {
+    const session = useSelector((state: any) => state.auth.session);
+    console.log("This is the current session", session);
     return (
         <div className="app-layout">
-            <header className="app-header">
-                <div className="header-content">
-                    <h1>ClassHub</h1>
-                    <nav>
-                        <Link to="/">ClassHub Landing</Link>
+            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="w-full flex h-16 items-center justify-between px-6">
+                    <div className="flex items-center gap-2">
+                        <Link to="/" className="flex items-center">
+                            <span className="text-xl font-bold">ClassHub</span>
+                        </Link>
+                    </div>
+                    <nav className="flex items-center gap-6">
+                        <Link
+                            to="/groupChats"
+                            className={cn(
+                "text-sm font-medium transition-colors hover:text-primary")}
+                        >
+                            Group Chats
+                        </Link>
+                        <Link
+                            to="/uploadSyllabus"
+                            className={cn(
+                "text-sm font-medium transition-colors hover:text-primary")}
+                        >
+                            Upload Syllabus
+                        </Link>
+                        <Button variant="default">
+                            {session ? "Sign Out" : "Sign In"}
+                        </Button>
                     </nav>
                 </div>
             </header>
