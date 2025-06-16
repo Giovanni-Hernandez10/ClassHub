@@ -18,14 +18,14 @@ export function Layout() {
                     </div>
                     <nav className="flex items-center gap-6">
                         <Link
-                            to="/groupChats"
+                            to={session? "/groupChats": "/sign-up"}
                             className={cn(
                 "text-sm font-medium transition-colors hover:text-primary")}
                         >
                             Group Chats
                         </Link>
                         <Link
-                            to="/uploadSyllabus"
+                            to={session? "/uploadSyllabus": "/sign-up"}
                             className={cn(
                 "text-sm font-medium transition-colors hover:text-primary")}
                         >
